@@ -25,11 +25,7 @@ public class PlayerManager : MonoBehaviour
 
     [Header("發射狀態會持續多久")]
     [SerializeField]
-    private float fire_duration;
-
-    [Header("目前所使用的武器")]
-    [SerializeField]
-    private GameObject cur_weapon;
+    private float fire_coolDown;
 
     [Header("武器落地的Y座標")]
     [SerializeField]
@@ -40,6 +36,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         Init();
+        Set_AttackPos_Bar();
 
         StartCoroutine(State_Machine());
     }
@@ -68,7 +65,7 @@ public class PlayerManager : MonoBehaviour
 
                     break;
                 case PlayerState.Charge:
-                    cur_charge += 33f * Time.fixedDeltaTime;
+                    cur_charge += 33f * Time.deltaTime;
 
                     if (Input.GetButtonUp("Charge"))
                         playerState = PlayerState.Fire;
@@ -82,7 +79,9 @@ public class PlayerManager : MonoBehaviour
                     attackPos_bar.GetComponent<SpriteRenderer>().enabled = false;
                     StartCoroutine(Fire(attackPos_bar.transform.position.x - transform.position.x));
 
-                    yield return new WaitForSeconds(fire_duration);
+
+
+                    yield return new WaitForSeconds(fire_coolDown);
 
                     cur_charge = 0.0f;
                     attackPos_bar.GetComponent<SpriteRenderer>().enabled = false;
@@ -103,20 +102,36 @@ public class PlayerManager : MonoBehaviour
     {
         Vector3 target_pos = transform.position + new Vector3(distance, transform.position.y, 0.0f);
 
-        GameObject attack = Instantiate(cur_weapon, transform.position, transform.rotation);
+        Weapon m_curWeapon = WeaponManager.instance.cur_weapon;
 
+        GameObject attack = Instantiate(m_curWeapon.gameObject, transform.position, transform.rotation);
+        attack.transform.localScale = new Vector3(0.2f, 0.2f, 1.0f);
 
+        // Scale from tiny to normal
+        attack.transform.DOScale(m_curWeapon.transform.localScale, 0.5f).SetEase(Ease.InCirc);
+
+        // Move curve
         attack.transform.DOMoveX(transform.position.x + distance/4, 0.2f).SetEase(Ease.InCirc);
         attack.transform.DOMoveY(transform.position.y + 5.5f, 0.2f).SetEase(Ease.InCirc);
-        attack.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.InCirc);
-
         yield return new WaitForSeconds(0.2f);
-
         attack.transform.DOMoveY(floorPos_Y, 0.3f).SetEase(Ease.InCirc);
         attack.transform.DOMoveX(transform.position.x + distance, 0.3f).SetEase(Ease.InCirc);
+
         yield return new WaitForSeconds(0.3f);
 
-        Destroy(attack, fire_duration);
+        CameraManager.instance.Shake();
+
+        Set_AttackPos_Bar();
+
+
+        Destroy(attack, 0.5f);
+    }
+
+    void Set_AttackPos_Bar()
+    {
+        WeaponManager.instance.Switch_To_Next_Weapon();
+        m_curWeapon = WeaponManager.instance.cur_weapon;
+        attackPos_bar.transform.localScale = new Vector3(m_curWeapon.transform.localScale.x, 10.8f, 1.0f);
     }
 
     void Init()

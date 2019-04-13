@@ -7,6 +7,11 @@ public class CameraManager : MonoBehaviour
 {
     public static CameraManager instance;
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +26,6 @@ public class CameraManager : MonoBehaviour
 
     public void Shake()
     {
-        transform.DOShakePosition(0.5f);
+        transform.DOShakePosition(0.35f);
     }
 }

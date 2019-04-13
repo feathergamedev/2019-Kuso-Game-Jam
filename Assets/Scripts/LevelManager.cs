@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum LevelState { Playing, Pause, Fail, NextLevel} 
 
 public class LevelManager : MonoBehaviour
 {
+    public static LevelManager instance;
+
 
     public LevelState m_levelState;
 
@@ -33,16 +36,23 @@ public class LevelManager : MonoBehaviour
 
     private float level_time;
 
+    [SerializeField]
+    Text Text_LevelInfo;
 
+    [SerializeField]
+    string prepared_words;
 
-
+    private void Awake()
+    {
+        instance = this;
+    }
 
 
     // Start is called before the first frame update
     void Start()
     {
         level_time = 0.0f;
-        m_levelState = LevelState.Playing;
+        m_levelState = LevelState.NextLevel;
 
         StartCoroutine(Level_Machine());
     }
@@ -72,13 +82,36 @@ public class LevelManager : MonoBehaviour
         //reload?
     }
 
+    /// <summary>
+    /// 由Enemy呼叫
+    /// </summary>
     public void Fail(){
         deathMenu.SetActive(true);
     }
 
+    IEnumerator LevelText_Performance()
+    {
+        int word_idx=0;
+
+        yield return new WaitForSeconds(1.5f);
+
+        while (word_idx < prepared_words.Length)
+        {
+            Text_LevelInfo.text += prepared_words[word_idx++];
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        yield return new WaitForSeconds(1.5f);
+
+        Text_LevelInfo.text = "";
+
+        m_levelState = LevelState.Playing;
+
+    }
+
     IEnumerator Level_Machine()
     {
-        yield return null;
+
 
         while(true)
         {
@@ -87,8 +120,6 @@ public class LevelManager : MonoBehaviour
                 case LevelState.Playing:
 
                     level_time += Time.fixedDeltaTime;
-
-                    Debug.Log(level_time);
 
                     if (level_time >= duration_per_level)
                     {
@@ -106,14 +137,19 @@ public class LevelManager : MonoBehaviour
                     break;
                 case LevelState.NextLevel:
 
-                    Debug.LogFormat("進入Level {0}", cur_level);
+                    prepared_words = string.Format("Level {0}", cur_level + 1);
+
+                    StartCoroutine(LevelText_Performance());
 
                     //Show "第幾關" UI
-                    yield return new WaitForSeconds(3.0f);
+                    yield return new WaitForSeconds(4.0f);
+
                     m_levelState = LevelState.Playing;
 
                     break;
             }
+
+            yield return null;
         }
     }
 

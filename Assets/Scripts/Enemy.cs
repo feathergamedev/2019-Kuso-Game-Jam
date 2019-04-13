@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
 
+    public int HP;
     public float born_posY;
+
 
     // Start is called before the first frame update
     void Start()
@@ -19,13 +21,26 @@ public class Weapon : MonoBehaviour
         
     }
 
+    void Die()
+    {
+        Destroy(this.gameObject);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Enemy")
+        if(collision.gameObject.tag=="Weapon")
         {
-            //Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+            HP--;
 
-            Destroy(collision.gameObject);
+            if(HP<=0)
+            {
+                Die();
+            }
+
+        }
+        else if(collision.gameObject.tag=="Player")
+        {
+            //Game Over.
         }
     }
 }

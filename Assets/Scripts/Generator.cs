@@ -10,7 +10,7 @@ public class Generator : MonoBehaviour
     public int randMin = 0;
     public int randMax = 0;
 
-    public float sec = 0f;
+    public float born_coolDown = 0f;
     private int rand;
     // Start is called before the first frame update
     void Start()
@@ -18,7 +18,7 @@ public class Generator : MonoBehaviour
         StartCoroutine(spawn());
     }
 
-    // Update is called once per frame
+    // Update is called once per frame  
     void Update()
     {
         
@@ -26,14 +26,28 @@ public class Generator : MonoBehaviour
 
     IEnumerator spawn(){
         while(true){
-            if(prefabs != null && randMax <= prefabs.Length -1){
-                rand = Random.Range(randMin,randMax);
-                Instantiate(prefabs[rand]);
 
-                yield return new WaitForSeconds(sec);
+            if(LevelManager.instance.m_levelState == LevelState.Playing)
+            {
+
+                if (prefabs != null && randMax <= prefabs.Length - 1)
+                {
+                    rand = Random.Range(randMin, randMax+1);
+
+                    GameObject newEnemy = Instantiate(prefabs[rand]);
+                    newEnemy.transform.position = new Vector3(12f, newEnemy.GetComponent<Enemy>().born_posY, 0f);
+
+                    yield return new WaitForSeconds(born_coolDown);
+                }
+
+
+            }
+            else
+            {
+                yield return null;
             }
 
-            yield return null;
+
         }
     }
 }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1184459974}
   - component: {fileID: 1184459975}
   - component: {fileID: 1184459976}
+  - component: {fileID: 4861082448305894121}
   m_Layer: 8
   m_Name: "\u76F4\u8D70\u602A"
   m_TagString: Enemy
@@ -75,7 +76,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &1184459975
 BoxCollider2D:
@@ -101,7 +102,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.0001, y: 0.0001}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &1184459976
 SpriteRenderer:
@@ -151,3 +152,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4861082448305894121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5430409222915399233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bc8198cd7de34d9ca9bd9483aed03c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: 1
+  born_posY: -4.4

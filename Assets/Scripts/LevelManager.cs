@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public enum LevelState { Playing, Pause, Fail, NextLevel} 
+public enum LevelState { Playing, Pause, Fail, NextLevel, WatchAd} 
 
 public class LevelManager : MonoBehaviour
 {
@@ -15,20 +16,6 @@ public class LevelManager : MonoBehaviour
     [Header("目前的關卡等級")]
     public int cur_level;
 
-    [SerializeField]
-    private GameObject mainMenu;
-
-    [SerializeField]
-    private GameObject pauseMenu;
-
-    [SerializeField]
-    private GameObject deathMenu;
-
-    [SerializeField]
-    private GameObject completeMenu;
-
-    [SerializeField]
-    private GameObject gameUI;
 
     [Header("每一關的持續時間")]
     [SerializeField]
@@ -41,6 +28,9 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField]
     string prepared_words;
+
+    public DeadBackgroundCtrl deadBackground;
+    public Generator generator;
 
     private void Awake()
     {
@@ -62,31 +52,24 @@ public class LevelManager : MonoBehaviour
     {
         
     }
-    public void GameStart(){
-        mainMenu.SetActive(false);
-        gameUI.SetActive(true);
-    }
-    public void GamePause(){
-        pauseMenu.SetActive(true);
-        gameUI.SetActive(false);
-    }
-    public void UnPause(){
-        pauseMenu.SetActive(false);
-        gameUI.SetActive(true);
-    }
+
     public void Next_Level(){
         //HARRRRDERRRRRRR
     }
 
     public void Replay(){
-        //reload?
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     /// <summary>
     /// 由Enemy呼叫
     /// </summary>
     public void Fail(){
-        deathMenu.SetActive(true);
+        if (m_levelState == LevelState.Fail)
+            return;
+
+        deadBackground.Play();
+        m_levelState = LevelState.Fail;
     }
 
     IEnumerator LevelText_Performance()
@@ -105,8 +88,14 @@ public class LevelManager : MonoBehaviour
 
         Text_LevelInfo.text = "";
 
-        m_levelState = LevelState.Playing;
+        if(m_levelState != LevelState.Fail)
+            m_levelState = LevelState.Playing;
 
+    }
+
+    void Show_Ads()
+    {
+        Fake_AdCounter.instance.Start_CountDown();
     }
 
     IEnumerator Level_Machine()
@@ -134,6 +123,15 @@ public class LevelManager : MonoBehaviour
                 case LevelState.Pause:
                     break;
                 case LevelState.Fail:
+
+                    if (Input.GetButtonDown("Charge"))
+                    {
+                        Show_Ads();
+                        deadBackground.Hide_Anim();
+                        m_levelState = LevelState.WatchAd;
+                    }
+
+
                     break;
                 case LevelState.NextLevel:
 
@@ -146,12 +144,43 @@ public class LevelManager : MonoBehaviour
 
                     m_levelState = LevelState.Playing;
 
+                    switch(cur_level)
+                    {
+                        case 1:
+                            generator.randMin = 0;
+                            generator.randMax = 0;
+                            break;
+                        case 2:
+                            generator.randMin = 0;
+                            generator.randMax = 2;
+                            break;
+                        case 3:
+                            generator.randMin = 1;
+                            generator.randMax = 3;
+                            break;
+                    }
+
                     break;
+                case LevelState.WatchAd:
+
+                    // 5秒後才能關掉廣告 (另外加一個UI準備秀出的時間);
+                    yield return new WaitForSeconds(6.0f);
+
+                    while(true)
+                    {
+                        if (Input.GetButtonDown("Charge"))
+                        {
+                            yield return null;
+                            Replay();
+
+                        }
+                        else
+                            yield return null;
+                    }
             }
 
             yield return null;
         }
     }
-
 
 }

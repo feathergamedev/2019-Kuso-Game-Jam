@@ -12,10 +12,14 @@ public class Generator : MonoBehaviour
 
     public float born_coolDown = 0f;
     private int rand;
+
+    List<Enemy> all_enemies;
+
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(spawn());
+        all_enemies = new List<Enemy>();
     }
 
     // Update is called once per frame  
@@ -37,6 +41,8 @@ public class Generator : MonoBehaviour
                     GameObject newEnemy = Instantiate(prefabs[rand]);
                     newEnemy.transform.position = new Vector3(12f, newEnemy.GetComponent<Enemy>().born_posY, 0f);
 
+                    all_enemies.Add(newEnemy.GetComponent<Enemy>());
+
                     yield return new WaitForSeconds(born_coolDown);
                 }
 
@@ -49,5 +55,17 @@ public class Generator : MonoBehaviour
 
 
         }
+    }
+
+    public void Clear_Enemies()
+    {
+        foreach (Enemy e in all_enemies)
+        {
+            if(e != null)   
+                Destroy(e.gameObject);
+        }
+
+
+        all_enemies.Clear();
     }
 }

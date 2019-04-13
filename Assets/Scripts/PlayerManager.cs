@@ -33,6 +33,8 @@ public class PlayerManager : MonoBehaviour
     private float floorPos_Y;
 
 
+    Animator m_animator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +42,8 @@ public class PlayerManager : MonoBehaviour
         Set_AttackPos_Bar();
 
         StartCoroutine(State_Machine());
+
+        m_animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -105,9 +109,12 @@ public class PlayerManager : MonoBehaviour
 
         m_curWeapon = WeaponManager.instance.cur_weapon;
 
+        m_animator.SetTrigger("Shoot");
+
         float m_born_posY = m_curWeapon.GetComponent<Weapon>().born_posY;
 
         GameObject attack = Instantiate(m_curWeapon.gameObject, new Vector3(-7.94f, m_born_posY,0f), transform.rotation);
+
 
         // Move curve
         attack.transform.DOMoveX(transform.position.x + distance/4, 0.2f).SetEase(Ease.InCirc);
@@ -116,14 +123,14 @@ public class PlayerManager : MonoBehaviour
         attack.transform.DOMoveY(floorPos_Y, 0.3f).SetEase(Ease.InCirc);
         attack.transform.DOMoveX(transform.position.x + distance, 0.3f).SetEase(Ease.InCirc);
 
+
         yield return new WaitForSeconds(0.3f);
 
         CameraManager.instance.Shake();
 
         Set_AttackPos_Bar();
 
-
-        Destroy(attack, 0.5f);
+        Destroy(attack, 0.45f);
     }
 
     void Set_AttackPos_Bar()

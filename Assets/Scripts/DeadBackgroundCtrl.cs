@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class DeadBackgroundCtrl : MonoBehaviour
 {
+
+
   public Sprite[] NormalDeadImageArray = new Sprite[0];
   public Sprite[] FullDeadImageArray = new Sprite[0];
   public string[] NormalDeadTextArray = new string[0];
@@ -39,7 +41,7 @@ public class DeadBackgroundCtrl : MonoBehaviour
 #if UNITY_EDITOR
   private void Update()
   {
-    if (Input.GetKeyDown(KeyCode.F1))
+    if (Input.GetKeyDown(KeyCode.F1) || Input.GetKeyDown(KeyCode.D))
     {
       Play();
     }
@@ -55,9 +57,17 @@ public class DeadBackgroundCtrl : MonoBehaviour
     _FontShadow = this.transform.Find("Animation/FontShadow").GetComponent<Image>();
     _Text = this.transform.Find("Animation/Text").GetComponent<Text>();
     _FrontBackground = this.transform.Find("Animation/FrontBackground").GetComponent<Image>();
+
+    _Anim.gameObject.SetActive(false);
+
   }
 
-  public void Play()
+    public void Hide_Anim()
+    {
+        _Anim.gameObject.SetActive(false);
+    }
+
+    public void Play()
   {
     int currIndex = GetRandomIndex();
     bool isFull = currIndex >= NormalDeadImageArray.Length;
@@ -78,6 +88,7 @@ public class DeadBackgroundCtrl : MonoBehaviour
     _FontShadow.sprite = currSprite;
     _Text.text = currText;
 
+    _Anim.gameObject.SetActive(true);
     _Anim.SetTrigger("Reset");
     _Anim.enabled = true;
   }

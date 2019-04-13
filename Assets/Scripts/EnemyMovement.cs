@@ -26,6 +26,9 @@ public class EnemyMovement : MonoBehaviour
     float jumpValue = 2.0f;
     float time;
 
+    [SerializeField]
+    public Vector3 jumpForce;
+
     [Header("忍者分身時間與距離")]
     [SerializeField]
     float splitTime = 2.0f;
@@ -59,7 +62,8 @@ public class EnemyMovement : MonoBehaviour
 
     void DOJump()
     {
-        transform.DOJump(transform.position + Vector3.left * jumpValue, 2, 1, jumpTime);
+        //        transform.DOJump(transform.position + Vector3.left * jumpValue, 2, 1, jumpTime);
+        GetComponent<Rigidbody2D>().AddForce(jumpForce);
     }
 
     void ShadowSplit()

@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour
         }
         else if(collision.gameObject.tag=="Player")
         {
-            //Game Over.
+            LevelManager.instance.Fail();
         }
     }
 }

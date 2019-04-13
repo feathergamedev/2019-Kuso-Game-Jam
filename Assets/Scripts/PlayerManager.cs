@@ -31,6 +31,11 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     private GameObject cur_weapon;
 
+    [Header("武器落地的Y座標")]
+    [SerializeField]
+    private float floorPos_Y;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -75,7 +80,7 @@ public class PlayerManager : MonoBehaviour
                 case PlayerState.Fire:
 
                     attackPos_bar.GetComponent<SpriteRenderer>().enabled = false;
-                    Fire(attackPos_bar.transform.position.x);
+                    StartCoroutine(Fire(attackPos_bar.transform.position.x - transform.position.x));
 
                     yield return new WaitForSeconds(fire_duration);
 
@@ -96,16 +101,20 @@ public class PlayerManager : MonoBehaviour
 
     IEnumerator Fire(float distance)
     {
-        Vector3 target_pos = new Vector3(distance, transform.position.y, 0.0f);
+        Vector3 target_pos = transform.position + new Vector3(distance, transform.position.y, 0.0f);
 
         GameObject attack = Instantiate(cur_weapon, transform.position, transform.rotation);
 
-        attack.transform.DOMove(target_pos, 0.5f, false).SetEase(Ease.InCirc);
+
+        attack.transform.DOMoveX(transform.position.x + distance/4, 0.2f).SetEase(Ease.InCirc);
+        attack.transform.DOMoveY(transform.position.y + 5.5f, 0.2f).SetEase(Ease.InCirc);
         attack.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.InCirc);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
 
-        
+        attack.transform.DOMoveY(floorPos_Y, 0.3f).SetEase(Ease.InCirc);
+        attack.transform.DOMoveX(transform.position.x + distance, 0.3f).SetEase(Ease.InCirc);
+        yield return new WaitForSeconds(0.3f);
 
         Destroy(attack, fire_duration);
     }

@@ -51,8 +51,8 @@ MonoBehaviour:
   jumpTime: 2
   jumpValue: 2
   splitTime: 2
-  min: -2
-  max: 2
+  min: -4
+  max: -2
   m_MovementInputValue: 0.1
 --- !u!50 &5854891282422450894
 Rigidbody2D:

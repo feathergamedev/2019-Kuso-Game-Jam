@@ -105,11 +105,11 @@ public class PlayerManager : MonoBehaviour
 
         m_curWeapon = WeaponManager.instance.cur_weapon;
 
-        GameObject attack = Instantiate(m_curWeapon.gameObject, transform.position, transform.rotation);
-        attack.transform.localScale = new Vector3(0.2f, 0.2f, 1.0f);
+        GameObject attack = Instantiate(m_curWeapon.gameObject, new Vector3(-7.94f, -4.6f,0f), transform.rotation);
+//        attack.transform.localScale = new Vector3(0.2f, 0.2f, 1.0f);
 
         // Scale from tiny to normal
-        attack.transform.DOScale(m_curWeapon.transform.localScale, 0.5f).SetEase(Ease.InCirc);
+//        attack.transform.DOScale(m_curWeapon.transform.localScale, 0.5f).SetEase(Ease.InCirc);
 
         // Move curve
         attack.transform.DOMoveX(transform.position.x + distance/4, 0.2f).SetEase(Ease.InCirc);

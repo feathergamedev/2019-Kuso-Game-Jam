@@ -26,30 +26,13 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField]
     float splitTime = 2.0f;
     public float min = -2 , max = 2;
-    private Rigidbody m_Rigidbody; 
+    private Rigidbody2D m_Rigidbody; 
     [SerializeField]
     private float m_MovementInputValue;
 
     private void Awake()
     {
-        m_Rigidbody = GetComponent<Rigidbody>();
-    }
-
-
-    private void OnEnable()
-    {
-        // When the enemy is turned on, make sure it's not kinematic.
-        m_Rigidbody.isKinematic = false;
-
-        // Also reset the input values.
-        //m_MovementInputValue = 0.03f;
-    }
-
-
-    private void OnDisable()
-    {
-        // When the enemy is turned off, set it to kinematic so it stops moving.
-        m_Rigidbody.isKinematic = true;
+        m_Rigidbody = GetComponent<Rigidbody2D>();
     }
 
 
@@ -67,16 +50,14 @@ public class EnemyMovement : MonoBehaviour
 
     void DOJump()
     {
-        m_Rigidbody.DOJump(transform.position + Vector3.left * jumpValue, 2, 1, jumpTime);
+        transform.DOJump(transform.position + Vector3.left * jumpValue, 2, 1, jumpTime);
     }
 
     void ShadowSplit()
     {
         //gameObject.AddComponent<EnemySpawn>();
-        GameObject Enemy = gameObject;
-        var vx = Random.Range(min, max);
-        while(vx == 0) { vx = Random.Range(min, max); }
-        Instantiate(Enemy, transform.position + new Vector3(Random.Range(min, max), 1, 0), Quaternion.identity);
+        GameObject Enemy = gameObject;        
+        Instantiate(Enemy, transform.position + new Vector3(Random.Range(min, max), 0, 0), Quaternion.identity);
     }
 
     private void Update()
@@ -101,7 +82,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void Move()
     {
-        Vector3 movement = Vector3.left * m_MovementInputValue * Speed * Time.deltaTime;
+        Vector2 movement = Vector3.left * m_MovementInputValue * Speed * Time.deltaTime;
 
         // Apply this movement to the rigidbody's position.
         m_Rigidbody.MovePosition(m_Rigidbody.position + movement);

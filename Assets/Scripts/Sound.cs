@@ -9,7 +9,8 @@ public class Sound {
 
 	[Range(0f,1f)]
 	//a slider for the values
-	public float volume;
+	public float volume = 0.5f;
+
 	[Range(0.1f,3f)]
 	public float pitch = 1;
 

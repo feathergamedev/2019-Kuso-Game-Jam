@@ -20,6 +20,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     private GameObject attackPos_bar;
 
+    Weapon m_curWeapon;
 
     private float cur_charge;
 
@@ -102,7 +103,7 @@ public class PlayerManager : MonoBehaviour
     {
         Vector3 target_pos = transform.position + new Vector3(distance, transform.position.y, 0.0f);
 
-        Weapon m_curWeapon = WeaponManager.instance.cur_weapon;
+        m_curWeapon = WeaponManager.instance.cur_weapon;
 
         GameObject attack = Instantiate(m_curWeapon.gameObject, transform.position, transform.rotation);
         attack.transform.localScale = new Vector3(0.2f, 0.2f, 1.0f);

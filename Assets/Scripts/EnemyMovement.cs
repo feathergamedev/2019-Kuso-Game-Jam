@@ -38,7 +38,6 @@ public class EnemyMovement : MonoBehaviour
     private Rigidbody2D m_Rigidbody; 
     [SerializeField]
     private float m_MovementInputValue;
-
     private void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody2D>();
@@ -50,6 +49,11 @@ public class EnemyMovement : MonoBehaviour
         //DOJump();
         if(m_type == MoveType.Shadow)
         Invoke("ShadowSplit", splitTime);
+
+        Speed += LevelManager.instance.cur_level * 1.2f;
+        jumpValue += LevelManager.instance.cur_level * 1.2f;
+        DrunkX -= LevelManager.instance.cur_level * 0.6f;
+        DrunkXm += LevelManager.instance.cur_level * 0.2f;
     }
 
     public void MovementInput(float forwardBackward)

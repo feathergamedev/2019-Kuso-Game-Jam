@@ -610,9 +610,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   all_weapons:
-  - {fileID: 4307312178964728689, guid: 5d21e1b9112de4701b4e3550f9cff35e, type: 3}
+  - {fileID: 2782930696312777068, guid: 114b703ec4bd246339320a28086ccf97, type: 3}
+  - {fileID: 4868241032423910655, guid: 1654978bc17fc470c90baa9c4cb672e1, type: 3}
   - {fileID: 8347991544646969145, guid: e96553ccad7274429be5bcc0d9f4f0fa, type: 3}
   - {fileID: 2268716814793464416, guid: 07004ca24bc6744c2b70cfdd6264603d, type: 3}
+  - {fileID: 472482670076669147, guid: 814e3cc0299f54e4980fc7fcf034e423, type: 3}
   cur_weapon: {fileID: 0}
   next_weapon: {fileID: 0}
 --- !u!4 &314473372
@@ -3984,7 +3986,7 @@ RectTransform:
   m_GameObject: {fileID: 1498931235}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0, z: 1}
   m_Children:
   - {fileID: 12044180}
   - {fileID: 532153299}
@@ -4589,7 +4591,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabs:
   - {fileID: 5430409222915399233, guid: 56846a224e3b4fa4b82f0f5d84743db4, type: 3}
-  - {fileID: 5854891282230365482, guid: 43f3d03bfb70b8445a2bf6d15bd0872b, type: 3}
+  - {fileID: 238659899599169591, guid: c95edc4658ecd4ce099a51535942f5e6, type: 3}
   - {fileID: 9194896836173208099, guid: c36cac5f15c69c84cb0f711a64b70e14, type: 3}
   - {fileID: 7793551484235330038, guid: 3b3befb2f92a1fe41a7a804ecd1f00cc, type: 3}
   randMin: 0

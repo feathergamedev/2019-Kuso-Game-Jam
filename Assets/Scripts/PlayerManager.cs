@@ -45,6 +45,8 @@ public class PlayerManager : MonoBehaviour
 
     Coroutine coroutine;
 
+    public Transform Player_Sprite_Trans = null;
+
     private void Awake()
     {
         instance = this;
@@ -87,10 +89,12 @@ public class PlayerManager : MonoBehaviour
                 case PlayerState.Idle:
                     if (Input.GetButtonDown("Charge"))
                     {
+                        m_animator.SetTrigger("Charging");
                         attackPos_bar.GetComponent<SpriteRenderer>().enabled = true;
                         playerState = PlayerState.Charge;
                     }
 
+                    Player_Sprite_Trans.localPosition = Vector3.zero;
 
                     break;
                 case PlayerState.Charge:
@@ -103,21 +107,19 @@ public class PlayerManager : MonoBehaviour
 
 
                     attackPos_bar.transform.position = new Vector3( (cur_charge * charge_speed) + transform.position.x, 0.0f, 0.0f);
+                    Player_Sprite_Trans.localPosition = Vector3.zero + GetShakeOffset(cur_charge / 33F);
 
                     break;
                 case PlayerState.Fire:
 
-
+                    Player_Sprite_Trans.localPosition = Vector3.zero;
                     StartCoroutine(Fire(attackPos_bar.transform.position.x - transform.position.x , attackPos_bar.transform));
-
-
 
                     yield return new WaitForSeconds(fire_coolDown);
 
                     cur_charge = 0.0f;
                     attackPos_bar.GetComponent<SpriteRenderer>().enabled = false;
                     attackPos_bar.transform.position = new Vector3(transform.position.x, 0.0f, 0.0f);
-
 
                     playerState = PlayerState.Idle;
                     break;
@@ -178,6 +180,12 @@ public class PlayerManager : MonoBehaviour
 
     public void Die()
     {
+        Player_Sprite_Trans.localPosition = Vector3.zero;
         m_animator.SetTrigger("Die");
+    }
+
+    Vector3 GetShakeOffset(float holdTime)
+    {
+        return new Vector3(Random.Range(-holdTime, holdTime) / 4F, Random.Range(-holdTime, holdTime) / 7F, 0F);
     }
 }

@@ -167,3 +167,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 1
   born_posY: -4.69
+  particle_posY: -1.25

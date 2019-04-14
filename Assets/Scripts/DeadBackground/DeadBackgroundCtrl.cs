@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public static class DeadOnce
+{
+  public static bool IsOnce = false;
+}
+
 public class DeadBackgroundCtrl : MonoBehaviour
 {
   public Sprite[] NormalDeadImageArray = new Sprite[0];
@@ -15,7 +20,6 @@ public class DeadBackgroundCtrl : MonoBehaviour
   private const int NORMAL_HEIGHT = 1300;
   private const int FULL_WIDTH = 1920;
   private const int FULL_HEIGHT = 1080;
-  private bool _IsOnce = false;
 
   private AnimationEventCall _AnimEvent = null;
   private Animator _Anim = null;
@@ -95,9 +99,9 @@ public class DeadBackgroundCtrl : MonoBehaviour
 
   private int GetRandomIndex()
   {
-    if (_IsOnce == false)
+    if (DeadOnce.IsOnce == false)
     {
-      _IsOnce = true;
+      DeadOnce.IsOnce = true;
       return 0;
     }
     int index = UnityEngine.Random.Range(0, NormalDeadImageArray.Length + FullDeadImageArray.Length);

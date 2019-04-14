@@ -133,6 +133,8 @@ public class LevelManager : MonoBehaviour
                     break;
                 case LevelState.Fail:
 
+                    yield return new WaitForSeconds(1.0f);
+
                     if (Input.GetButtonDown("Charge"))
                     {
                         Show_Ads();
@@ -171,7 +173,7 @@ public class LevelManager : MonoBehaviour
                             break;
                     }
 
-                    if(generator.born_coolDown > 0.3f)
+                    if(generator.born_coolDown > 0.4f)
                         generator.born_coolDown -= 0.2f;
 
                     break;

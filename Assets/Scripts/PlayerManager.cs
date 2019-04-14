@@ -43,6 +43,7 @@ public class PlayerManager : MonoBehaviour
 
     public GameObject Shoot_Particle, Enemy_Particle;
 
+    Coroutine coroutine;
 
     private void Awake()
     {
@@ -60,7 +61,7 @@ public class PlayerManager : MonoBehaviour
 
         Set_AttackPos_Bar();
 
-        StartCoroutine(State_Machine());
+        coroutine = StartCoroutine(State_Machine());
 
         m_animator = GetComponent<Animator>();
     }
@@ -68,7 +69,11 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(LevelManager.instance.m_levelState==LevelState.Fail && coroutine!=null)
+        {
+            StopCoroutine(coroutine);
+            coroutine = null;
+        }
     }
 
     IEnumerator State_Machine()
@@ -90,6 +95,8 @@ public class PlayerManager : MonoBehaviour
                     break;
                 case PlayerState.Charge:
                     cur_charge += 33f * Time.deltaTime;
+
+                    transform.DOShakePosition(0.02f);
 
                     if (Input.GetButtonUp("Charge"))
                         playerState = PlayerState.Fire;

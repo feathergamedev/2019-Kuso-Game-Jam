@@ -13,21 +13,25 @@ public class WeaponManager : MonoBehaviour
 
     public List<Weapon> all_weapons;
     public List<AudioSource> weapon_sounds;
+    public List<Sprite> weapon_icons;
 
-    public Weapon cur_weapon, next_weapon;
+    public Weapon cur_weapon;
 
-    public AudioSource cur_sound, next_sound;
+    public AudioSource cur_sound;
+
+    public int cur_idx, next_idx;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        int cur_idx = Random.Range(0, all_weapons.Count);
-        int next_idx = Random.Range(0, all_weapons.Count);
+        cur_idx = Random.Range(0, all_weapons.Count);
+        next_idx = Random.Range(0, all_weapons.Count);
 
-        cur_weapon = all_weapons[cur_idx];
-        next_weapon = all_weapons[next_idx];
+        PlayerUIManager.instance.currentPullOutSprite.sprite = weapon_icons[cur_idx];
+        PlayerUIManager.instance.nextPullOutSprite.sprite = weapon_icons[next_idx];
+        PlayerUIManager.instance.Update_Sprite();
 
-        Refresh_UI_Icon();
     }
     
     // Update is called once per frame
@@ -38,23 +42,20 @@ public class WeaponManager : MonoBehaviour
 
     public void Switch_To_Next_Weapon()
     {
-        int cur_idx = Random.Range(0, all_weapons.Count);
 
-        cur_weapon = next_weapon;
-        cur_sound = next_sound;
+        cur_idx = next_idx;
 
-        int next_idx = Random.Range(0, all_weapons.Count);
-        next_weapon = all_weapons[next_idx];
-        next_sound = weapon_sounds[next_idx];
+        next_idx = Random.Range(0, all_weapons.Count);
 
-        Refresh_UI_Icon();
+        Icon_Update();
+
+
     }
 
-    void Refresh_UI_Icon()
+    void Icon_Update()
     {
-        PlayerUIManager.instance.currentPullOutSprite.sprite = cur_weapon.gameObject.GetComponent<SpriteRenderer>().sprite;
-        PlayerUIManager.instance.nextPullOutSprite.sprite = next_weapon.gameObject.GetComponent<SpriteRenderer>().sprite;
-
+        PlayerUIManager.instance.currentPullOutSprite.sprite = weapon_icons[cur_idx];
+        PlayerUIManager.instance.nextPullOutSprite.sprite = weapon_icons[next_idx];
         PlayerUIManager.instance.Update_Sprite();
     }
 

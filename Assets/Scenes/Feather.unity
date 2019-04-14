@@ -901,11 +901,17 @@ MonoBehaviour:
   - {fileID: 2268716814793464416, guid: 07004ca24bc6744c2b70cfdd6264603d, type: 3}
   - {fileID: 472482670076669147, guid: 814e3cc0299f54e4980fc7fcf034e423, type: 3}
   weapon_sounds:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1847137481}
+  - {fileID: 1847137481}
+  - {fileID: 1847137481}
   - {fileID: 707346144}
   - {fileID: 1595739607}
+  weapon_icons:
+  - {fileID: 21300000, guid: 80ade53cc84814a98a2bdcd45ee48cde, type: 3}
+  - {fileID: 21300000, guid: ab08caccef5a9473cb376b606e76307b, type: 3}
+  - {fileID: 21300000, guid: c6b2bef34d2d64409b93eb5ddc98f553, type: 3}
+  - {fileID: 21300000, guid: ca116a61c56404bd7953666788229864, type: 3}
+  - {fileID: 21300000, guid: 63b5e07f6a28144b6bb488db3e7be6a4, type: 3}
   cur_weapon: {fileID: 0}
   next_weapon: {fileID: 0}
   cur_sound: {fileID: 0}
@@ -6343,7 +6349,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f4979b5d47de44e00b143c03a6e34581, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 8e4a80389266f4271b18c397185e8862, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

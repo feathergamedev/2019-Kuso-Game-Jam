@@ -57,6 +57,7 @@ public class PlayerManager : MonoBehaviour
             power = 5;
         }
         Init();
+
         Set_AttackPos_Bar();
 
         StartCoroutine(State_Machine());
@@ -99,7 +100,7 @@ public class PlayerManager : MonoBehaviour
                     break;
                 case PlayerState.Fire:
 
-                    attackPos_bar.GetComponent<SpriteRenderer>().enabled = false;
+
                     StartCoroutine(Fire(attackPos_bar.transform.position.x - transform.position.x , attackPos_bar.transform));
 
 
@@ -127,7 +128,7 @@ public class PlayerManager : MonoBehaviour
 
         GameObject particle = Instantiate(Shoot_Particle, new Vector3(-7.835f, -4.582f, 0.0f), transform.rotation);
 
-        m_curWeapon = WeaponManager.instance.cur_weapon;
+        m_curWeapon = WeaponManager.instance.all_weapons[ WeaponManager.instance.cur_idx] ;
 
         m_animator.SetTrigger("Shoot");
 
@@ -156,7 +157,7 @@ public class PlayerManager : MonoBehaviour
     {
         WeaponManager.instance.Switch_To_Next_Weapon();
         m_curWeapon = WeaponManager.instance.cur_weapon;
-        attackPos_bar.transform.localScale = new Vector3(m_curWeapon.transform.localScale.x, 10.8f, 1.0f);
+//        attackPos_bar.transform.localScale = new Vector3(m_curWeapon.transform.localScale.x, 10.8f, 1.0f);
     }
 
     void Init()

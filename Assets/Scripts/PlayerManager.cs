@@ -91,6 +91,8 @@ public class PlayerManager : MonoBehaviour
                 case PlayerState.Charge:
                     cur_charge += 33f * Time.deltaTime;
 
+                    transform.DOShakePosition(0.02f);
+
                     if (Input.GetButtonUp("Charge"))
                         playerState = PlayerState.Fire;
 

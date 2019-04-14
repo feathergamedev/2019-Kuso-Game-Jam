@@ -28,6 +28,7 @@ public class WeaponManager : MonoBehaviour
         cur_idx = Random.Range(0, all_weapons.Count);
         next_idx = Random.Range(0, all_weapons.Count);
 
+        cur_sound = weapon_sounds[cur_idx];
         PlayerUIManager.instance.currentPullOutSprite.sprite = weapon_icons[cur_idx];
         PlayerUIManager.instance.nextPullOutSprite.sprite = weapon_icons[next_idx];
         PlayerUIManager.instance.Update_Sprite();
@@ -44,6 +45,7 @@ public class WeaponManager : MonoBehaviour
     {
 
         cur_idx = next_idx;
+        cur_sound = weapon_sounds[cur_idx];
 
         next_idx = Random.Range(0, all_weapons.Count);
 

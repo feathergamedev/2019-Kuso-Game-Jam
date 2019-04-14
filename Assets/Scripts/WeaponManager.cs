@@ -39,7 +39,11 @@ public class WeaponManager : MonoBehaviour
 
     void Refresh_UI_Icon()
     {
+        PlayerUIManager.instance.currentPullOutSprite.sprite = cur_weapon.gameObject.GetComponent<SpriteRenderer>().sprite;
+        PlayerUIManager.instance.nextPullOutSprite.sprite = next_weapon.gameObject.GetComponent<SpriteRenderer>().sprite;
 
+        PlayerUIManager.instance.Update_Sprite();
     }
+
 
 }

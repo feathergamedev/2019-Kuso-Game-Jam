@@ -9,6 +9,10 @@ public class BGScroll : MonoBehaviour
 
     [SerializeField]
     Transform bg02;
+
+    [SerializeField]
+    private float scrollSpeed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,13 +22,14 @@ public class BGScroll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bg01.position -= new Vector3(0.1f,0,0);
-        if(bg01.position.x <= -19.5){
-            bg01.position = new Vector3(19.5f,0,0);
+        bg01.localPosition -= new Vector3(scrollSpeed, 0,0);
+        if(bg01.localPosition.x <= -3.31f){
+            bg01.localPosition = new Vector3(4.30f,0,0);
         }
-        bg02.position -= new Vector3(0.1f,0,0);
-        if(bg02.position.x <= -19.5){
-            bg02.position = new Vector3(19.5f,0,0);
+
+        bg02.localPosition -= new Vector3(scrollSpeed, 0,0);
+        if(bg02.localPosition.x <= -3.31f){
+            bg02.localPosition = new Vector3(4.30f,0,0);
         }
     }
 }

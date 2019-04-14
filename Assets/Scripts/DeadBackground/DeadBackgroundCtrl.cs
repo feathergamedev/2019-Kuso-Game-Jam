@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class DeadBackgroundCtrl : MonoBehaviour
 {
-
-
   public Sprite[] NormalDeadImageArray = new Sprite[0];
   public Sprite[] FullDeadImageArray = new Sprite[0];
   public string[] NormalDeadTextArray = new string[0];
@@ -19,6 +17,7 @@ public class DeadBackgroundCtrl : MonoBehaviour
   private const int FULL_HEIGHT = 1080;
   private bool _IsOnce = false;
 
+  private AnimationEventCall _AnimEvent = null;
   private Animator _Anim = null;
   private Image _Background = null;
   private Image _FontImage = null;
@@ -50,7 +49,6 @@ public class DeadBackgroundCtrl : MonoBehaviour
 
   private void Init()
   {
-    _Anim = this.transform.Find("Animation").GetComponent<Animator>();
     _Background = this.transform.Find("Animation/Background").GetComponent<Image>();
     _FontImage = this.transform.Find("Animation/FontImage").GetComponent<Image>();
     _FontLight = this.transform.Find("Animation/FontLight").GetComponent<Image>();
@@ -58,16 +56,19 @@ public class DeadBackgroundCtrl : MonoBehaviour
     _Text = this.transform.Find("Animation/Text").GetComponent<Text>();
     _FrontBackground = this.transform.Find("Animation/FrontBackground").GetComponent<Image>();
 
+    _AnimEvent = this.transform.Find("Animation").GetComponent<AnimationEventCall>();
+    _AnimEvent.OnFinishedCallback = OnFinished;
+    _Anim = this.transform.Find("Animation").GetComponent<Animator>();
     _Anim.gameObject.SetActive(false);
 
   }
 
-    public void Hide_Anim()
-    {
-        _Anim.gameObject.SetActive(false);
-    }
+  public void Hide_Anim()
+  {
+      _Anim.gameObject.SetActive(false);
+  }
 
-    public void Play()
+  public void Play()
   {
     int currIndex = GetRandomIndex();
     bool isFull = currIndex >= NormalDeadImageArray.Length;
@@ -134,6 +135,7 @@ public class DeadBackgroundCtrl : MonoBehaviour
 
   private void OnFinished()
   {
+    Debug.Log("Finished Play");
     if (_OnFinshedCallback != null)
       _OnFinshedCallback();
   }

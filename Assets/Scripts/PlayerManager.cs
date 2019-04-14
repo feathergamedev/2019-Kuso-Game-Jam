@@ -16,6 +16,10 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     private float charge_speed;
 
+    [Header("道具拋出力道")]
+    [SerializeField]
+    private float power;
+
     [Header("標示目前攻擊位置的Bar條")]
     [SerializeField]
     private GameObject attackPos_bar;
@@ -38,6 +42,10 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (power <=0 )
+        {
+            power = 5;
+        }
         Init();
         Set_AttackPos_Bar();
 
@@ -82,7 +90,7 @@ public class PlayerManager : MonoBehaviour
                 case PlayerState.Fire:
 
                     attackPos_bar.GetComponent<SpriteRenderer>().enabled = false;
-                    StartCoroutine(Fire(attackPos_bar.transform.position.x - transform.position.x));
+                    StartCoroutine(Fire(attackPos_bar.transform.position.x - transform.position.x , attackPos_bar.transform));
 
 
 
@@ -101,9 +109,9 @@ public class PlayerManager : MonoBehaviour
 
 
     }
-
-
-    IEnumerator Fire(float distance)
+    
+  
+    IEnumerator Fire(float distance,Transform target)
     {
         Vector3 target_pos = transform.position + new Vector3(distance, transform.position.y, 0.0f);
 
@@ -114,17 +122,20 @@ public class PlayerManager : MonoBehaviour
         float m_born_posY = m_curWeapon.GetComponent<Weapon>().born_posY;
 
         GameObject attack = Instantiate(m_curWeapon.gameObject, new Vector3(-7.94f, m_born_posY,0f), transform.rotation);
-
-
+        
+        float y = attack.GetComponent<SpriteRenderer>().bounds.size.y / 2;
+        print(attack.GetComponent<SpriteRenderer>().bounds.size.y / 2);
+        attack.transform.DOJump(new Vector3(target.position.x, -5 + y, 0), power, 1, 0.5f, false);
         // Move curve
+        /*
         attack.transform.DOMoveX(transform.position.x + distance/4, 0.2f).SetEase(Ease.InCirc);
         attack.transform.DOMoveY(transform.position.y + 5.5f, 0.2f).SetEase(Ease.InCirc);
         yield return new WaitForSeconds(0.2f);
         attack.transform.DOMoveY(floorPos_Y, 0.3f).SetEase(Ease.InCirc);
         attack.transform.DOMoveX(transform.position.x + distance, 0.3f).SetEase(Ease.InCirc);
 
-
-        yield return new WaitForSeconds(0.3f);
+        */
+        yield return new WaitForSeconds(0.5f);
 
         CameraManager.instance.Shake();
 

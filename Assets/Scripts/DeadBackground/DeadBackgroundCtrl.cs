@@ -60,7 +60,6 @@ public class DeadBackgroundCtrl : MonoBehaviour
     _AnimEvent.OnFinishedCallback = OnFinished;
     _Anim = this.transform.Find("Animation").GetComponent<Animator>();
     _Anim.gameObject.SetActive(false);
-
   }
 
   public void Hide_Anim()
@@ -135,7 +134,6 @@ public class DeadBackgroundCtrl : MonoBehaviour
 
   private void OnFinished()
   {
-    Debug.Log("Finished Play");
     if (_OnFinshedCallback != null)
       _OnFinshedCallback();
   }

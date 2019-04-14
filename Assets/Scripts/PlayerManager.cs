@@ -119,6 +119,8 @@ public class PlayerManager : MonoBehaviour
 
         m_animator.SetTrigger("Shoot");
 
+        //根據武器類型來加音效
+
         float m_born_posY = m_curWeapon.GetComponent<Weapon>().born_posY;
 
         GameObject attack = Instantiate(m_curWeapon.gameObject, new Vector3(-7.94f, m_born_posY,0f), transform.rotation);

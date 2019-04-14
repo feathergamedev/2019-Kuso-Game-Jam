@@ -32,6 +32,9 @@ public class LevelManager : MonoBehaviour
     public DeadBackgroundCtrl deadBackground;
     public Generator generator;
 
+    //計算失敗後過了多久，可以跳廣告
+    float fail_timer;
+
     private void Awake()
     {
         instance = this;
@@ -42,6 +45,8 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         level_time = 0.0f;
+        fail_timer = 0.0f;
+
         m_levelState = LevelState.NextLevel;
 
         StartCoroutine(Level_Machine());
@@ -50,7 +55,8 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (m_levelState == LevelState.Fail)
+            fail_timer += Time.deltaTime;
     }
 
     public void Next_Level(){
@@ -58,7 +64,7 @@ public class LevelManager : MonoBehaviour
     }
 
     public void Replay(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("Bogay");
     }
 
     /// <summary>
@@ -132,10 +138,8 @@ public class LevelManager : MonoBehaviour
                 case LevelState.Pause:
                     break;
                 case LevelState.Fail:
-
-                    yield return new WaitForSeconds(1.0f);
-
-                    if (Input.GetButtonDown("Charge"))
+                
+                    if (Input.GetButtonDown("Charge") && fail_timer >= 1.1f)
                     {
                         Show_Ads();
                         deadBackground.Hide_Anim();

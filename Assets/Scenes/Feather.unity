@@ -2608,7 +2608,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 41133fe8083924fdaaed044e49ccd902, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.33
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -4346,6 +4346,46 @@ PrefabInstance:
       propertyPath: m_MatchWidthOrHeight
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6601317507005865541, guid: a773d731dc277f648be30f5be56a0805,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6601317507005865541, guid: a773d731dc277f648be30f5be56a0805,
+        type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6601317507005865541, guid: a773d731dc277f648be30f5be56a0805,
+        type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6601317507005865541, guid: a773d731dc277f648be30f5be56a0805,
+        type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6601317507005865541, guid: a773d731dc277f648be30f5be56a0805,
+        type: 3}
+      propertyPath: m_FontData.m_VerticalOverflow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6601317507005865541, guid: a773d731dc277f648be30f5be56a0805,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6601317507005865541, guid: a773d731dc277f648be30f5be56a0805,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6601317507005865541, guid: a773d731dc277f648be30f5be56a0805,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6601317506512113501, guid: a773d731dc277f648be30f5be56a0805,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -4390,46 +4430,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -141
-      objectReference: {fileID: 0}
-    - target: {fileID: 6601317507005865541, guid: a773d731dc277f648be30f5be56a0805,
-        type: 3}
-      propertyPath: m_FontData.m_FontSize
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 6601317507005865541, guid: a773d731dc277f648be30f5be56a0805,
-        type: 3}
-      propertyPath: m_FontData.m_MaxSize
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 6601317507005865541, guid: a773d731dc277f648be30f5be56a0805,
-        type: 3}
-      propertyPath: m_FontData.m_MinSize
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6601317507005865541, guid: a773d731dc277f648be30f5be56a0805,
-        type: 3}
-      propertyPath: m_FontData.m_HorizontalOverflow
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6601317507005865541, guid: a773d731dc277f648be30f5be56a0805,
-        type: 3}
-      propertyPath: m_FontData.m_VerticalOverflow
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6601317507005865541, guid: a773d731dc277f648be30f5be56a0805,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6601317507005865541, guid: a773d731dc277f648be30f5be56a0805,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6601317507005865541, guid: a773d731dc277f648be30f5be56a0805,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6793027276690852128, guid: a773d731dc277f648be30f5be56a0805,
         type: 3}
@@ -5683,7 +5683,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 584237710e5d9471c865e0af8d85360b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.64
   m_Pitch: 1
   Loop: 0
   Mute: 0

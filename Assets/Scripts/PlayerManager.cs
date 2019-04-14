@@ -141,9 +141,10 @@ public class PlayerManager : MonoBehaviour
         
         float y = attack.GetComponent<SpriteRenderer>().bounds.size.y / 2;
         print(attack.GetComponent<SpriteRenderer>().bounds.size.y / 2);
-        attack.transform.rotation = Quaternion.Euler(0, 0, -45);
+        attack.transform.rotation = Quaternion.Euler(0, 0, 135);
         attack.transform.DOJump(new Vector3(target.position.x, -5 + y, 0), power, 1, 0.5f, false);
-        attack.transform.DORotate(new Vector3(0, 0, -360), 0.5f);
+        attack.transform.DORotate(new Vector3(0, 0, 0), 0.5f);
+        //attack.transform.DORotate(new Vector3(0, 0, -360), 0.5f);
         yield return new WaitForSeconds(0.5f);
 
         CameraManager.instance.Shake();

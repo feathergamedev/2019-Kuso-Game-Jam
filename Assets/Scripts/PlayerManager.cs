@@ -8,6 +8,8 @@ public enum PlayerState { Idle, Charge, Fire}
 
 public class PlayerManager : MonoBehaviour
 {
+    public static PlayerManager instance;
+
 
     [SerializeField]
     PlayerState playerState;
@@ -38,6 +40,14 @@ public class PlayerManager : MonoBehaviour
 
 
     Animator m_animator;
+
+    public GameObject Shoot_Particle, Enemy_Particle;
+
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -115,11 +125,14 @@ public class PlayerManager : MonoBehaviour
     {
         Vector3 target_pos = transform.position + new Vector3(distance, transform.position.y, 0.0f);
 
+        GameObject particle = Instantiate(Shoot_Particle, new Vector3(-7.835f, -4.582f, 0.0f), transform.rotation);
+
         m_curWeapon = WeaponManager.instance.cur_weapon;
 
         m_animator.SetTrigger("Shoot");
 
         //根據武器類型來加音效
+        WeaponManager.instance.Play_Sound();
 
         float m_born_posY = m_curWeapon.GetComponent<Weapon>().born_posY;
 
@@ -128,15 +141,8 @@ public class PlayerManager : MonoBehaviour
         float y = attack.GetComponent<SpriteRenderer>().bounds.size.y / 2;
         print(attack.GetComponent<SpriteRenderer>().bounds.size.y / 2);
         attack.transform.DOJump(new Vector3(target.position.x, -5 + y, 0), power, 1, 0.5f, false);
-        // Move curve
-        /*
-        attack.transform.DOMoveX(transform.position.x + distance/4, 0.2f).SetEase(Ease.InCirc);
-        attack.transform.DOMoveY(transform.position.y + 5.5f, 0.2f).SetEase(Ease.InCirc);
-        yield return new WaitForSeconds(0.2f);
-        attack.transform.DOMoveY(floorPos_Y, 0.3f).SetEase(Ease.InCirc);
-        attack.transform.DOMoveX(transform.position.x + distance, 0.3f).SetEase(Ease.InCirc);
 
-        */
+
         yield return new WaitForSeconds(0.5f);
 
         CameraManager.instance.Shake();
@@ -161,5 +167,8 @@ public class PlayerManager : MonoBehaviour
         attackPos_bar.transform.position = transform.position;
     }
 
-
+    public void Die()
+    {
+        m_animator.SetTrigger("Die");
+    }
 }

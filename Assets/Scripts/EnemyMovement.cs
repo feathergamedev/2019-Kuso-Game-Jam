@@ -53,7 +53,11 @@ public class EnemyMovement : MonoBehaviour
         if(m_type == MoveType.Shadow)
         Invoke("ShadowSplit", splitTime);
 
-        Speed += LevelManager.instance.cur_level * 1.2f;
+        Speed *= UnityEngine.Random.Range(1.0f, 1.7f);
+
+        Speed += LevelManager.instance.cur_level * 2f;
+
+
         jumpValue += LevelManager.instance.cur_level * 1.2f;
         DrunkX -= LevelManager.instance.cur_level * 0.6f;
         DrunkXm += LevelManager.instance.cur_level * 0.2f;
@@ -88,6 +92,9 @@ public class EnemyMovement : MonoBehaviour
                 time = 0;
             }
         }        
+
+
+        
     }
     private void FixedUpdate()
     {

@@ -68,8 +68,17 @@ public class LevelManager : MonoBehaviour
         if (m_levelState == LevelState.Fail)
             return;
 
-        deadBackground.Play();
+        PlayerManager.instance.Die();
+        SoundManager.instance.Play_Sound(SoundType.主角死亡);
+
+        Invoke("Show_Die_Background", 0.3f);        
+
         m_levelState = LevelState.Fail;
+    }
+
+    void Show_Die_Background()
+    {
+        deadBackground.Play();
     }
 
     IEnumerator LevelText_Performance()
@@ -148,17 +157,22 @@ public class LevelManager : MonoBehaviour
                     {
                         case 1:
                             generator.randMin = 0;
-                            generator.randMax = 0;
+                            generator.randMax = 1;
+
+
                             break;
                         case 2:
-                            generator.randMin = 0;
-                            generator.randMax = 2;
+                            generator.randMin = 1;
+                            generator.randMax = 3;
                             break;
                         case 3:
                             generator.randMin = 1;
                             generator.randMax = 3;
                             break;
                     }
+
+                    if(generator.born_coolDown > 0.3f)
+                        generator.born_coolDown -= 0.2f;
 
                     break;
                 case LevelState.WatchAd:

@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public int HP;
     public float born_posY;
 
+    public float particle_posY;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,11 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
+        GameObject particle = PlayerManager.instance.Enemy_Particle;
+
+        Instantiate(particle, transform.position + new Vector3(0.0f, particle_posY, 0.0f), transform.rotation);
+        Debug.Log("Yo!");
+
         Destroy(this.gameObject);
     }
 

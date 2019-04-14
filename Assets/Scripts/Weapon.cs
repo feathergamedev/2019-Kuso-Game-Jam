@@ -21,11 +21,5 @@ public class Weapon : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Enemy")
-        {
-            //Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-
-            Destroy(collision.gameObject);
-        }
     }
 }

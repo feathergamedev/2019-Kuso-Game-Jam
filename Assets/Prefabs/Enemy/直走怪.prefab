@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_type: 0
-  Speed: 12
+  Speed: 20
   jumpTime: 2
   jumpValue: 2
   jumpForce: {x: 0, y: 0, z: 0}

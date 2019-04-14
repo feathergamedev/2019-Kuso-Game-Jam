@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Generator : MonoBehaviour
 {
+
+
     [SerializeField]
     GameObject[] prefabs = new GameObject[1];
 
@@ -25,7 +27,12 @@ public class Generator : MonoBehaviour
     // Update is called once per frame  
     void Update()
     {
-        
+
+    }
+
+    public void Born_Cooldown_Decrease(float val)
+    {
+        born_coolDown -= val;
     }
 
     IEnumerator spawn(){

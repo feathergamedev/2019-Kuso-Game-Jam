@@ -32,6 +32,8 @@ public class LevelManager : MonoBehaviour
     public DeadBackgroundCtrl deadBackground;
     public Generator generator;
 
+    bool isFailed;
+
     //計算失敗後過了多久，可以跳廣告
     float fail_timer;
 
@@ -48,6 +50,8 @@ public class LevelManager : MonoBehaviour
         fail_timer = 0.0f;
 
         m_levelState = LevelState.NextLevel;
+
+        isFailed = false;
 
         StartCoroutine(Level_Machine());
     }
@@ -71,8 +75,8 @@ public class LevelManager : MonoBehaviour
     /// 由Enemy呼叫
     /// </summary>
     public void Fail(){
-        if (m_levelState == LevelState.Fail)
-            return;
+
+        isFailed = true;
 
         PlayerManager.instance.Die();
         SoundManager.instance.Play_Sound(SoundType.主角死亡);
@@ -125,7 +129,7 @@ public class LevelManager : MonoBehaviour
 
                     level_time += Time.fixedDeltaTime;
 
-                    if (level_time >= duration_per_level)
+                    if (level_time >= duration_per_level && !isFailed)
                     {
                         cur_level++;
                         level_time = 0.0f;
@@ -157,7 +161,10 @@ public class LevelManager : MonoBehaviour
                     //Show "第幾關" UI
                     yield return new WaitForSeconds(4.0f);
 
-                    m_levelState = LevelState.Playing;
+                    if (!isFailed)
+                        m_levelState = LevelState.Playing;
+                    else
+                        m_levelState = LevelState.Fail;
 
                     switch(cur_level)
                     {

@@ -2,7 +2,8 @@
 
 This game is made for 2018 Kuso Game Jam(2018.04.13 ~ 2018.04.14) in Taiwan.  
 We are group F of Taipei activity site.  
-Members:  
+<br/>
+Group Members:  
 Feather Chung (Me)<br/>
 傑哥<br/>
 TZ<br/>
